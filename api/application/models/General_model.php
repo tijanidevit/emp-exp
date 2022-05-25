@@ -23,5 +23,13 @@ class General_model extends CI_Model
         return $merchant;
     }
 
+    public function fetch_merchants()
+    {        
+        $this->db->order_by('merchant');
+        $query = $this->db->get('merchants');
+        $merchant = $query->result();
+        return $merchant;
+    }
+
 
 }

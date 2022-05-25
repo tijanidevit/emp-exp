@@ -7,12 +7,16 @@ const ExpenseRow = ({ expense }) => {
       <td>{expense.merchant}</td>
       <td>{expense.date}</td>
       <td>&#8358;{expense.amount}</td>
-      <td>
+      {/* <td>
         <a href={expense.receipt} rel="noreferrer" target="_blank">
           <img style={{ maxHeight: 120 }} src={expense.receipt} alt="Receipt" />
         </a>
-      </td>
+      </td> */}
       <td className="text-wrap">{expense.comment.substring(0, 120)}</td>
+      <td onClick={() => alert(JSON.stringify(expense))}>
+        {" "}
+        <button className="btn btn-primary">View</button>
+      </td>
     </tr>
   );
 };

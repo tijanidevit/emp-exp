@@ -7,20 +7,22 @@ import {
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import Spinner from "../utilizies/Spinner";
-import DepartmentOptions from "../departments/DepartmentOptions";
+import EmployeeOptions from "../employees/EmployeeOptions";
+import MerchantOptions from "../merchants/MerchantOptions";
 const AddExpenseForm = () => {
   const dispatch = useDispatch();
   // const [requestStatus, setRequestStatus] = useState("idle");
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState("");
-  const LoginSchema = Yup.object().shape({
-    location: Yup.string().required("Location is required"),
-    fullname: Yup.string().required("Fullname is required"),
-    department_id: Yup.string().required("Department is required"),
-    job_description: Yup.string()
+  const ExpenseSchema = Yup.object().shape({
+    amount: Yup.string().required("Amount is required"),
+    date: Yup.date().required("Date is required"),
+    merchant_id: Yup.string().required("Merchant is required"),
+    employee_id: Yup.string().required("Employee is required"),
+    comment: Yup.string()
       .required("Job Description is required")
       .max(200, "Job Description cannot be more than 200 charactersß"),
-    profile_picture: Yup.mixed().required("Profile Picture is required"),
+    receipt: Yup.mixed().required("Profile Picture is required"),
   });
 
   return (
@@ -43,13 +45,14 @@ const AddExpenseForm = () => {
               <div className="">
                 <Formik
                   initialValues={{
-                    fullname: "",
-                    department_id: 0,
-                    location: "",
-                    job_description: "",
-                    profile_picture: null,
+                    merchant_id: "",
+                    employee_id: 0,
+                    amount: "",
+                    comment: "",
+                    date: "",
+                    receipt: null,
                   }}
-                  validationSchema={LoginSchema}
+                  validationSchema={ExpenseSchema}
                   onSubmit={async (values, { resetForm }) => {
                     setSubmitting(true);
                     setMessage("");
@@ -96,93 +99,108 @@ const AddExpenseForm = () => {
                       )}
 
                       <div className="form-group">
-                        <label className="form-control-label">Fullname</label>
+                        <label className="form-control-label">Date</label>
                         <Field
-                          name="fullname"
-                          type="text"
+                          name="date"
+                          type="date"
                           required
                           className="form-control"
-                          id="fullname"
+                          id="date"
                         />
-                        {errors.fullname && touched.fullname ? (
-                          <div className="text-danger">{errors.fullname}</div>
+                        {errors.date && touched.date ? (
+                          <div className="text-danger">{errors.date}</div>
                         ) : null}
                       </div>
 
                       <div className="form-group">
-                        <label className="form-control-label">Department</label>
+                        <label className="form-control-label">Employee</label>
                         <div className="pass-group">
                           <Field
                             as="select"
                             required
                             className="form-control pass-input"
-                            name="department_id"
+                            name="employee_id"
                           >
                             <option value="" key=""></option>
-                            <DepartmentOptions />
+                            <EmployeeOptions />
                           </Field>
                         </div>
 
-                        {errors.department_id && touched.department_id ? (
+                        {errors.employee_id && touched.employee_id ? (
                           <div className="text-danger">
-                            {errors.department_id}
+                            {errors.employee_id}
                           </div>
                         ) : null}
                       </div>
 
                       <div className="form-group">
-                        <label className="form-control-label">Location</label>
+                        <label className="form-control-label">Merchant</label>
+                        <div className="pass-group">
+                          <Field
+                            as="select"
+                            required
+                            className="form-control pass-input"
+                            name="merchant_id"
+                          >
+                            <option value="" key=""></option>
+                            <MerchantOptions />
+                          </Field>
+                        </div>
+
+                        {errors.merchant_id && touched.merchant_id ? (
+                          <div className="text-danger">
+                            {errors.merchant_id}
+                          </div>
+                        ) : null}
+                      </div>
+
+                      <div className="form-group">
+                        <label className="form-control-label">Amount</label>
                         <div className="pass-group">
                           <Field
                             type="text"
                             required
                             className="form-control pass-input"
-                            name="location"
+                            name="amount"
                           />
                         </div>
 
-                        {errors.location && touched.location ? (
-                          <div className="text-danger">{errors.location}</div>
+                        {errors.amount && touched.amount ? (
+                          <div className="text-danger">{errors.amount}</div>
                         ) : null}
                       </div>
                       <div className="form-group">
                         <label>Photo</label>
 
                         <input
-                          id="profile_picture"
-                          name="profile_picture"
+                          id="receipt"
+                          name="receipt"
                           type="file"
                           accept="image/*"
                           className="form-control"
                           onChange={(event) => {
                             setFieldValue(
-                              "profile_picture",
+                              "receipt",
                               event.currentTarget.files[0]
                             );
                           }}
                         />
-                        {errors.profile_picture && touched.profile_picture ? (
-                          <div className="text-danger">
-                            {errors.profile_picture}
-                          </div>
+                        {errors.receipt && touched.receipt ? (
+                          <div className="text-danger">{errors.receipt}</div>
                         ) : null}
                       </div>
 
                       <div className="form-group">
-                        <label className="form-control-label">
-                          Job Description
-                        </label>
+                        <label className="form-control-label">Comment</label>
                         <Field
-                          name="job_description"
+                          name="comment"
                           as="textarea"
                           required
                           className="form-control"
-                          id="job_description"
+                          id="comment"
                         />
-                        {errors.job_description && touched.job_description ? (
-                          <div className="text-danger">
-                            {errors.job_description}
-                          </div>
+                        {errors.comment && touched.comment ? (
+                          <div className="text-danger">{errors.comment}</div>
                         ) : null}
                       </div>
                       <button
