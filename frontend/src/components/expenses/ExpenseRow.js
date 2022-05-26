@@ -1,5 +1,19 @@
 import React from "react";
 
+const ShowRowModal = ({ expense }) => {
+  return (
+    <div className="modal custom-modal fade" id="rowModal" role="dialog">
+      <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-content">
+          <div className="modal-body">
+            <div className="form-header">Add New Employee {expense.id}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const ExpenseRow = ({ expense }) => {
   return (
     <tr>
@@ -13,9 +27,16 @@ const ExpenseRow = ({ expense }) => {
         </a>
       </td> */}
       <td className="text-wrap">{expense.comment.substring(0, 120)}</td>
-      <td onClick={() => alert(JSON.stringify(expense))}>
+      <td>
         {" "}
-        <button className="btn btn-primary">View</button>
+        <button
+          className="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target={`#rowModal${expense.id}`}
+        >
+          View
+        </button>
+        <ShowRowModal expense={expense} />
       </td>
     </tr>
   );
