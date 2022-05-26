@@ -34,7 +34,7 @@ const AddEmployeeForm = () => {
           Add Employee
         </button>
       </div>
-      <div className=" custom-modal fade" id="myModal" role="dialog">
+      <div className="modal custom-modal fade" id="myModal" role="dialog">
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-body">

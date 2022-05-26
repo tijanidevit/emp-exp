@@ -39,9 +39,9 @@ function Expenses() {
                       <th>Merchant</th>
                       <th>Date</th>
                       <th>Amount</th>
-                      {/* <th>Receipt</th> */}
+                      <th>Receipt</th>
                       <th>Comment</th>
-                      <th>Action</th>
+                      {/* <th>Action</th> */}
                     </tr>
                   </thead>
                   <tbody>
